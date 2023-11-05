@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+     <Description>Efficient .NET Core wrapper for libmagic.</Description>
+    <AssemblyTitle>SharpMagic</AssemblyTitle>
+    <Version>3.5.2</Version>
+    <Authors>Nierop Computer Vision</Authors>
+    <TargetFrameworks>net6.0;netstandard2.1</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <PackageId>SharpMagic</PackageId>
+    <PackageTags>mime;mimetype;SharpMagic;file info</PackageTags>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://github.com/egbertn/SharpMagic</PackageProjectUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyName>SharpMagic</AssemblyName>
+    <RootNamespace>NCV.SharpMagic</RootNamespace>
+    <AssemblyOriginatorKeyFile>../../../key.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly Condition=" '$(Configuration)' != 'Debug' ">true</SignAssembly>
+    <Configurations>Debug;Release</Configurations>
+    <Platforms>AnyCPU</Platforms>
+  </PropertyGroup>
+
+</Project>
