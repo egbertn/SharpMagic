@@ -74,7 +74,11 @@ public sealed class LibMagic : IDisposable
         Collection<string?> strings = new();
         foreach (var n in nints)
         {
-            var retPtr = magic_buffer(n, MemoryMarshal.AsRef<byte>(buffer), bufferLength);
+            #if NET6_0_OR_GREATER
+                var retPtr = magic_buffer(n, MemoryMarshal.AsRef<byte>(buffer), bufferLength);
+            #elif NETSTANDARD2_1_OR_GREATER
+                var retPtr = magic_buffer(n, MemoryMarshal.AsBytes(buffer).Pin().Pointer, bufferLength);
+            #endif
             if (retPtr > 0)
             {
                 strings.Add(Marshal.PtrToStringAnsi(retPtr));
@@ -85,7 +89,7 @@ public sealed class LibMagic : IDisposable
                 break;
             }
         }
-        return (strings[0], strings[1]?.Split(',', StringSplitOptions.TrimEntries));
+        return (strings[0], strings[1]?.Split(',').Select(s => s.TrimStart()).ToArray());
     }
 
     /// <summary>
@@ -96,7 +100,10 @@ public sealed class LibMagic : IDisposable
     /// <returns> a tuple</returns>
     public (string? MimeType, ICollection<string>? Properties) GuessMimeType(string file, bool mimeOnly = false)
     {
-        ArgumentNullException.ThrowIfNull(file);
+        if (file == null)
+        {
+            throw new ArgumentNullException(nameof(file));
+        }
         if (!File.Exists(file))
         {
             throw new FileNotFoundException();
@@ -117,7 +124,7 @@ public sealed class LibMagic : IDisposable
             }
         }
 
-        return (strings[0], strings[1]?.Split(',', StringSplitOptions.TrimEntries));
+        return (strings[0], strings[1]?.Split(',').Select(s => s.TrimStart()).ToArray());
     }
 
     /// <summary>
