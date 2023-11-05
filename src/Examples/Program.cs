@@ -1,10 +1,13 @@
 ﻿using NCV.SharpMagic;
+using System;
+using System.IO;
+
 internal class Program
 {
     //dotnet publish  --runtime linux-arm64 src/Examples -c Release --no-self-contained
-    private static void Main(string[] args)
-    {
-        using LibMagic dll = new();
+    private static void Main()
+    {   
+        using LibMagic dll = new LibMagic();
         using var mp4 = File.OpenRead("tesje.mp4");
         var (mp4MimeType, _) = dll.GuessMimeType(mp4, 2048, true);
         Console.WriteLine($"detected mimetype = {mp4MimeType}");

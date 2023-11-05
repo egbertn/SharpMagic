@@ -1,5 +1,7 @@
 namespace NCV.SharpMagic;
 
+using System;
+
 /// <summary>
 /// Contains libmagic options flags.
 /// </summary>
