@@ -84,7 +84,7 @@ public sealed class LibMagic :IDisposable
                 var retPtr = magic_buffer(n, MemoryMarshal.AsRef<byte>(buffer), bufferLength);
                 if (retPtr > 0)
                 {
-                    strings.Add(Marshal.PtrToStringAnsi(retPtr));
+                    strings.Add(Marshal.PtrToStringUTF8(retPtr));
                 }
                 if (mimeOnly)
                 {
@@ -121,7 +121,7 @@ public sealed class LibMagic :IDisposable
                 var retPtr = magic_file(n, file);
                 if (retPtr > 0)
                 {
-                    strings.Add(Marshal.PtrToStringAnsi(retPtr));
+                    strings.Add(Marshal.PtrToStringUTF8(retPtr));
                 }
                 if (mimeOnly)
                 {
