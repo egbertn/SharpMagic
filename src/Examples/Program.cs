@@ -6,8 +6,8 @@ internal class Program
 {
     //dotnet publish  --runtime linux-arm64 src/Examples -c Release --no-self-contained
     private static void Main()
-    {   
-        using LibMagic dll = new LibMagic();
+    {
+        using LibMagic dll = new ();
         using var mp4 = File.OpenRead("tesje.mp4");
         var (mp4MimeType, _) = dll.GuessMimeType(mp4, 2048, true);
         Console.WriteLine($"detected mimetype = {mp4MimeType}");

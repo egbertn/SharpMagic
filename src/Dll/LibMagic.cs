@@ -1,5 +1,4 @@
-﻿namespace NCV.SharpMagic;
-
+﻿
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -7,12 +6,14 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Runtime.InteropServices;
 
+namespace NCV.SharpMagic;
+
 /// <summary>
 /// The wrapper for libmagic (linux)
 /// </summary>
-public sealed class LibMagic : System.IDisposable
+public sealed class LibMagic :IDisposable
 {
-
+    private readonly object locker = new();
     /// <summary>
     /// Libmagic open flags for getting file type
     /// </summary>
@@ -55,7 +56,7 @@ public sealed class LibMagic : System.IDisposable
     /// returns eventual error
     /// </summary>
     /// <returns></returns>
-    public string? Error() => Marshal.PtrToStringAnsi(magic_error(MimeCookie.Value));
+    public string? Error() => Marshal.PtrToStringUTF8(magic_error(MimeCookie.Value));
 
     /// <summary>
     /// Get mime type from bytes buffer.
@@ -76,21 +77,20 @@ public sealed class LibMagic : System.IDisposable
         }
         nint[] nints = { MimeCookie.Value, TextCookie.Value };
         Collection<string?> strings = new();
-        foreach (var n in nints)
+        lock (locker)
         {
-            #if NET6_0_OR_GREATER
+            foreach (var n in nints)
+            {
                 var retPtr = magic_buffer(n, MemoryMarshal.AsRef<byte>(buffer), bufferLength);
-            #else
-                var retPtr = magic_buffer(n, buffer, bufferLength);
-            #endif
-            if (retPtr > 0)
-            {
-                strings.Add(Marshal.PtrToStringAnsi(retPtr));
-            }
-            if (mimeOnly)
-            {
-                strings.Add("");
-                break;
+                if (retPtr > 0)
+                {
+                    strings.Add(Marshal.PtrToStringAnsi(retPtr));
+                }
+                if (mimeOnly)
+                {
+                    strings.Add("");
+                    break;
+                }
             }
         }
         return (strings[0], strings[1]?.Split(',').Select(s => s.TrimStart()).ToArray());
@@ -114,20 +114,22 @@ public sealed class LibMagic : System.IDisposable
         }
         nint[] nints = { MimeCookie.Value, TextCookie.Value };
         Collection<string?> strings = new();
-        foreach (var n in nints)
+        lock (locker)
         {
-            var retPtr = magic_file(n, file);
-            if (retPtr > 0)
+            foreach (var n in nints)
             {
-                strings.Add(Marshal.PtrToStringAnsi(retPtr));
-            }
-            if (mimeOnly)
-            {
-                strings.Add("");
-                break;
+                var retPtr = magic_file(n, file);
+                if (retPtr > 0)
+                {
+                    strings.Add(Marshal.PtrToStringAnsi(retPtr));
+                }
+                if (mimeOnly)
+                {
+                    strings.Add("");
+                    break;
+                }
             }
         }
-
         return (strings[0], strings[1]?.Split(',').Select(s => s.TrimStart()).ToArray());
     }
 
@@ -180,23 +182,19 @@ public sealed class LibMagic : System.IDisposable
     private static extern nint magic_open(MagicOpenFlags flags);
 
     [DllImport(MAGIC_LIB_PATH, ExactSpelling = true)]
-    private static extern int magic_load(nint magic_cookie, [In, MarshalAs(UnmanagedType.LPStr)] string? dbPath);
+    private static extern int magic_load(nint magic_cookie, [In, MarshalAs(UnmanagedType.LPUTF8Str)] string? dbPath);
 
     [DllImport(MAGIC_LIB_PATH, ExactSpelling = true)]
     private static extern void magic_close(nint magic_cookie);
 
     [DllImport(MAGIC_LIB_PATH, ExactSpelling = true)]
     //[return: MarshalAs(UnmanagedType.LPUTF8Str)]
-    private static extern nint magic_file(nint magic_cookie, [In, MarshalAs(UnmanagedType.LPStr)] string? dbPath);
+    private static extern nint magic_file(nint magic_cookie, [In, MarshalAs(UnmanagedType.LPUTF8Str)] string? dbPath);
 
     [DllImport(MAGIC_LIB_PATH, ExactSpelling = true)]
-#if NET6_0_OR_GREATER
+
     internal static extern nint magic_buffer(nint magic_cookie, in byte buffer, int length);
-#elif NETSTANDARD2_1_OR_GREATER
-    internal static extern nint magic_buffer(nint magic_cookie, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex =2)] ReadOnlySpan<byte> buffer, int length);
-#else
-    internal static extern nint magic_buffer(nint magic_cookie, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ReadOnlySpan<byte> buffer, int length);
-#endif
+
     [DllImport(MAGIC_LIB_PATH, ExactSpelling = true)]
     //[return: MarshalAs(UnmanagedType.LPUTF8Str)]
     private static extern nint magic_error(nint magic_cookie);
@@ -208,10 +206,10 @@ public sealed class LibMagic : System.IDisposable
     private static extern int magic_setflags(nint magic_cookie, MagicOpenFlags flags);
 
     [DllImport(MAGIC_LIB_PATH, ExactSpelling = true)]
-    private static extern int magic_check(nint magic_cookie, [In, MarshalAs(UnmanagedType.LPStr)] string? dbPath);
+    private static extern int magic_check(nint magic_cookie, [In, MarshalAs(UnmanagedType.LPUTF8Str)] string? dbPath);
 
     [DllImport(MAGIC_LIB_PATH, ExactSpelling = true)]
-    private static extern int magic_compile(nint magic_cookie, [In, MarshalAs(UnmanagedType.LPStr)] string? dbPath);
+    private static extern int magic_compile(nint magic_cookie, [In, MarshalAs(UnmanagedType.LPUTF8Str)] string? dbPath);
 
     [DllImport(MAGIC_LIB_PATH, ExactSpelling = true)]
     private static extern int magic_getparam(nint magic_cookie, MagicParams param, out int value);

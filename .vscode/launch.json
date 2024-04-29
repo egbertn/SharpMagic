@@ -14,8 +14,7 @@
             "cwd": "${workspaceFolder}/src/Examples",
             "stopAtEntry": false,
             "env": {
-                "ASPNETCORE_ENVIRONMENT": "LocalDevelopment",
-                "ASPNETCORE_HOSTBUILDER__RELOADCONFIGONCHANGE": "false"
+                "DOTNET_ENVIRONMENT": "Development"
             }
         },
     ]

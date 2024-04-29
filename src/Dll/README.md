@@ -1,24 +1,8 @@
+#  NCV Sharpmagic
+Tiny C# client class built on top off libmagic https://man.archlinux.org/man/core/file/libmagic.3.en LibMagic (on arch linux)
 
-<h1 align="center">
-  <br>
-  <a href="http://www.amitmerchant.com/electron-markdownify"><img src="https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.png" alt="Markdownify" width="200"></a>
-  <br>
-  NCV Sharpmagic
-  <br>
-</h1>
-
-<h4 align="center">tiny C# client class built on top off libmagic <a href="https://man.archlinux.org/man/core/file/libmagic.3.en" target="_blank">LibMagic (on arch linux)</a>.</h4>
-
-<p align="center">
-
-</p>
-
-<p align="center">
-  <a href="#key-features">Key Features</a> •
-  <a href="#how-to-use">How To Use</a> •
-  <a href="#credits">Credits</a> •
-  <a href="#license">License</a>
-</p>
+## Description
+Wraps basic LibMagic calls in order to get mimetype and file type properties (if possible) using the well known library which is a standard library on Linux
 
 ## Key Features
 
