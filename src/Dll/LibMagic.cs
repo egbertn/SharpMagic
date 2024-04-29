@@ -88,7 +88,7 @@ public sealed class LibMagic :IDisposable
                 }
                 if (mimeOnly)
                 {
-                    strings.Add("");
+                    strings.Add(string.Empty);
                     break;
                 }
             }
@@ -125,7 +125,7 @@ public sealed class LibMagic :IDisposable
                 }
                 if (mimeOnly)
                 {
-                    strings.Add("");
+                    strings.Add(string.Empty);
                     break;
                 }
             }
