@@ -65,11 +65,20 @@ detected properties = ISO Media,MP4 v2 [ISO 14496-14]
 
 ```
 
+## See also other great components
+###ISP Session Enables Session and Application State using redis, while in an easy fashion using minimal resources.
+[NCV ISPSession (And Application State)](https://www.nuget.org/packages/NCV.ISPSession)
+
+###CCTV Camera Streaming and Management and Notification management.
+Enables you to organizate your camerastreams to a NVidea Jetson (nano e.g.) the default features plus training your own models
+Does not need to use the cloud, so privacy is covered for most of it.
+[CCure Image Stream](https://www.nieropcomputervision.com)
 
 ## Support
 
-Basically, no support. Maybe if I have time.
+Basically for this component, no support. Maybe if I have time.
 
 ## License
 
 MIT
+

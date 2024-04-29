@@ -2,23 +2,25 @@
 Tiny C# client class built on top off libmagic https://man.archlinux.org/man/core/file/libmagic.3.en LibMagic (on arch linux)
 
 ## Description
-Wraps basic LibMagic calls in order to get mimetype and file type properties (if possible) using the well known library which is a standard library on Linux
+Wraps basic LibMagic calls in order to get mimetype and file type properties (if possible) using the well known library which is mostly standard on Linux
 
 ## Key Features
 
 * Highly optimized for low resource usage.
 * Enables using the libmagic library to retrieve mime types or file info (as properties)
 * e.g.
-[quote]
-detected mimetype = ISO Media,MP4 Base Media v1 [IS0 14496-12:2003]
-detected mimetype = JPEG image data,JFIF standard 1.01,aspect ratio,density 1x1,segment length 16,baseline,precision 8,1200x826,components 3
-[/quote]
 
-* Only supporting linux. Windows not tested and probably will not, since libmagic is not an out of the box component.
+```text
+detected mimetype = ISO Media,MP4 Base Media v1 [IS0 14496-12:2003]
+detected mimetype = JPEG image data,JFIF standard 1.01,aspect ratio,density 1x1,segment length 16,baseline,precision 8,1200x826,
+components 3
+```
+
+* Only supporting linux or OS-es that have libmagic as part of the OS.
 
 ## How To Use
 
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+To clone and run this application, you'll need [Git](https://git-scm.com) From your command line:
 
 ```bash
 # Clone this repository
@@ -64,10 +66,18 @@ detected properties = ISO Media,MP4 v2 [ISO 14496-14]
 
 ```
 
+## See also other great components
+###ISP Session Enables Session and Application State using redis, while in an easy fashion using minimal resources.
+[NCV ISPSession (And Application State)](https://www.nuget.org/packages/NCV.ISPSession)
+
+###CCTV Camera Streaming and Management and Notification management.
+Enables you to organizate your camerastreams to a NVidia Jetson (nano e.g.) the default features plus training your own models
+Does not need to use the cloud, so privacy is covered for most of it.
+[CCure Image Stream](https://www.nieropcomputervision.com)
 
 ## Support
 
-Basically, no support. Maybe if I have time.
+Not really. If I have time. Drop a message.
 
 ## You may also like...
 

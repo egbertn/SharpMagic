@@ -8,19 +8,19 @@
     <AssemblyTitle>Sharp Magic</AssemblyTitle>
     <Version>1.0.0</Version>
     <Authors>Nierop Computer Vision</Authors>
-    <Owners>Nierop Computer Vision</Owners>
+    <Owners>egbert_nierop</Owners>
     <Nullable>enable</Nullable>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageId>SharpMagic</PackageId>
     <PackageTags>mime;mimetype;libmagic;file info</PackageTags>
     <PackageProjectUrl>https://github.com/egbertn/SharpMagic</PackageProjectUrl>
-
+    <Copyright>(c) 2024 Nierop Computer Vision. All rights reserved.</Copyright>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
      <PackageReleaseNotes>
-      * Refactored Options
+      * just support net 6.0 and higher
     </PackageReleaseNotes>
     <AssemblyName>SharpMagic</AssemblyName>
     <RootNamespace>NCV.SharpMagic</RootNamespace>
@@ -30,6 +30,8 @@
 
 <ItemGroup>
   <None Include="README.md" Pack="true" PackagePath="" />
+  <None Include="LICENSE.txt" Pack="true" PackagePath="" />
+
 </ItemGroup>
 
   <ItemGroup>
