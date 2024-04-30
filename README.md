@@ -17,7 +17,7 @@ tiny C# client class built on top off libmagic Library which exist on must Linux
 
 ## How To Use
 
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+To clone and run this application, you'll need [Git](https://git-scm.com) installed on your computer. From your command line:
 
 ```bash
 # Clone this repository
@@ -31,10 +31,9 @@ dotnet add package NCV.SharpMagic
 
 ## Credits
 
-This software uses the following open source packages:
+This software was based on
 
-- [Libmagic]
-- [Hey-Red](https://github.com/hey-red/Mime/commits?author=hey-red) (inspired this code)
+[Libmagic]
 
 ## Usage
 Register SharpMagic as singleton
@@ -81,4 +80,3 @@ Basically for this component, no support. Maybe if I have time.
 ## License
 
 MIT
-

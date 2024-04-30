@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,7 +10,7 @@ namespace NCV.SharpMagic;
 /// <summary>
 /// The wrapper for libmagic (linux)
 /// </summary>
-public sealed class LibMagic :IDisposable
+public sealed class LibMagic : IDisposable
 {
     private readonly object locker = new();
     /// <summary>
@@ -104,10 +103,8 @@ public sealed class LibMagic :IDisposable
     /// <returns> a tuple</returns>
     public (string? MimeType, ICollection<string>? Properties) GuessMimeType(string file, bool mimeOnly = false)
     {
-        if (file == null)
-        {
-            throw new ArgumentNullException(nameof(file));
-        }
+        ArgumentNullException.ThrowIfNull(file);
+
         if (!File.Exists(file))
         {
             throw new FileNotFoundException();
